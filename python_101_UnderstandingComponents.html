@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대화형 파이썬 개념 학습</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .concept-btn.active {
+            background-color: #14b8a6;
+            color: white;
+            border-color: #14b8a6;
+        }
+        .code-highlight {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border-radius: 4px;
+            padding: 1px 3px;
+            margin: -1px -3px;
+        }
+        .code-highlight:hover {
+            background-color: #a7f3d0;
+        }
+        .code-highlight.selected {
+            background-color: #fdba74;
+            box-shadow: 0 0 10px rgba(253, 186, 116, 0.7);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Chosen Palette: Calm Harmony (Slate, Teal, Orange) -->
+    <!-- Application Structure Plan: A two-part, single-page application designed for progressive learning. Part 1 introduces concepts via an interactive LEGO analogy, allowing users to select a term and see its details, fostering focused learning. Part 2 connects these abstract concepts to a concrete code example where users can hover or click on code snippets to see their conceptual mapping. This "concept-then-application" structure enhances understanding by first building a mental model and then reinforcing it with a practical example, all within a single, scrollable view for seamless navigation. -->
+    <!-- Visualization & Content Choices: 
+        - LEGO Analogy Section: Goal: Inform/Organize. Method: Interactive list updating a display panel. Interaction: Click on concept buttons. Justification: More engaging and less overwhelming than a static table.
+        - Code Mapping Section: Goal: Relate/Inform. Method: Interactive code block with highlighted spans. Interaction: Click/hover on code spans to show tooltips/info boxes. Justification: Creates a direct, tangible link between code and concept.
+        - Hierarchy Diagram: Goal: Organize. Method: Nested divs styled with Tailwind CSS. Interaction: None. Justification: Simple, clear visual representation of the "container" relationship without the overhead of a charting library.
+        - Library/Method: Vanilla JavaScript for all interactions. Tailwind CSS for all styling.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <div class="container mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-teal-600 mb-2">파이썬 프로그래밍 핵심 개념</h1>
+            <p class="text-lg text-slate-600">레고(LEGO)와 실제 코드로 배우는 파이썬의 구성 요소</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Section 1: LEGO Analogy -->
+            <section id="lego-analogy">
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1">1. 레고 비유로 개념 잡기 🧱</h2>
+                    <p class="text-slate-600 mb-6">아래 목록에서 궁금한 개념을 클릭하면 레고 비유와 설명을 확인할 수 있습니다. 각 요소가 어떻게 연결되는지 상상해 보세요.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div id="concept-buttons" class="md:col-span-1 flex flex-row md:flex-col flex-wrap gap-2">
+                            <!-- Concept buttons will be injected here by JS -->
+                        </div>
+                        <div id="concept-display" class="md:col-span-2 bg-slate-100 p-6 rounded-lg min-h-[200px] flex items-center justify-center">
+                            <!-- Concept details will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Code Mapping -->
+            <section id="code-mapping">
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1">2. 실제 코드로 개념 연결하기 🗺️</h2>
+                    <p class="text-slate-600 mb-6">이제 실제 머신러닝 코드에서 각 부분이 어떤 개념에 해당하는지 직접 클릭하여 확인해 보세요. 코드에 마우스를 올리면 강조 표시됩니다.</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold mb-2 text-lg">예시 코드:</h3>
+                            <div class="bg-slate-800 text-white p-4 rounded-lg text-sm overflow-x-auto">
+                                <pre><code>from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<span class="code-highlight" data-concept-key="module">tree</span> import <span class="code-highlight" data-concept-key="class">DecisionTreeClassifier</span>
+from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<span class="code-highlight" data-concept-key="module">model_selection</span> import <span class="code-highlight" data-concept-key="function">train_test_split</span>
+from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<span class="code-highlight" data-concept-key="module">datasets</span> import <span class="code-highlight" data-concept-key="function">load_iris</span>
+from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<span class="code-highlight" data-concept-key="module">metrics</span> import <span class="code-highlight" data-concept-key="function">accuracy_score</span>
+
+<span class="code-highlight" data-concept-key="object_dt">dt_clf</span> = <span class="code-highlight" data-concept-key="class_call">DecisionTreeClassifier()</span>
+
+<span class="code-highlight" data-concept-key="object_iris">iris_data</span> = <span class="code-highlight" data-concept-key="function_call">load_iris()</span>
+
+<span class="code-highlight" data-concept-key="object_split">X_train, X_test, y_train, y_test</span> = <span class="code-highlight" data-concept-key="function_call_split">train_test_split(...)</span></code></pre>
+                            </div>
+                        </div>
+                        <div id="code-explanation" class="bg-slate-100 p-6 rounded-lg flex flex-col justify-center">
+                            <p class="text-slate-500 text-center">코드의 각 부분을 클릭하여 설명을 확인하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const legoConcepts = [
+                { term: '함수 (Function)', emoji: '⚙️', analogy: '특정 동작 (e.g., 브릭 두 개 연결하기)', description: '가장 작은 단위의 기능 또는 동작입니다. 특정 작업을 수행하는 코드 블록입니다.' },
+                { term: '객체 (Object)', emoji: '🚗', analogy: '완성된 레고 창작물 (e.g., 빨간색 자동차)', description: '설계도(클래스)를 바탕으로 만들어진 실체입니다. 고유한 상태(색상)와 동작(굴러가기)을 가집니다.' },
+                { term: '클래스 (Class)', emoji: '📄', analogy: '레고 조립 설명서 (e.g., 자동차 설계도)', description: '객체를 만들기 위한 설계도 또는 템플릿입니다. 객체의 속성과 행동 방식을 정의합니다.' },
+                { term: '모듈 (Module)', emoji: '📦', analogy: '특정 부품이 담긴 비닐봉지 (e.g., 바퀴 세트 봉지)', description: '함수와 클래스를 모아놓은 하나의 파이썬 파일(`.py`)입니다. 특정 주제와 관련된 기능의 묶음입니다.' },
+                { term: '패키지 (Package)', emoji: '🧰', analogy: '여러 봉지가 든 레고 박스 (e.g., \'레고 시티 자동차\' 세트)', description: '여러 모듈(비닐봉지)들을 모아놓은 폴더입니다. 관련된 모듈들을 체계적으로 관리합니다.' },
+                { term: '라이브러리 (Library)', emoji: '📚', analogy: '레고 카탈로그 전체 (e.g., 레고 시티, 스타워즈 시리즈 등)', description: '수많은 패키지와 모듈의 거대한 집합입니다. 특정 분야의 작업을 위해 필요한 도구들을 모아 제공합니다.' }
+            ];
+
+            const codeMappings = {
+                'sklearn': { term: '라이브러리/패키지', description: '데이터 분석과 머신러닝 기능을 모아놓은 거대한 도구 모음(라이브러리)입니다.' },
+                'module': { term: '패키지/모듈', description: '`sklearn` 라이브러리 안에서 특정 주제별로 기능을 묶어놓은 폴더(패키지/모듈)입니다.' },
+                'class': { term: '클래스 (Class)', description: '\'결정 트리\' 모델을 만들기 위한 설계도입니다. `()`가 붙기 전, 대문자로 시작하는 이름입니다.' },
+                'function': { term: '함수 (Function)', description: '데이터를 나누거나, 불러오거나, 정확도를 계산하는 특정 기능을 바로 수행합니다.' },
+                'object_dt': { term: '객체 (Object)', description: '`DecisionTreeClassifier`라는 설계도로 만들어낸 실제 \'결정 트리\' 모델 실체입니다.' },
+                'class_call': { term: '객체 생성 (Instantiation)', description: '클래스라는 설계도를 호출하여 실제 객체를 만들어내는 과정입니다.' },
+                'object_iris': { term: '객체 (Object)', description: '`load_iris` 함수가 실행되어 반환된, 아이리스 품종 데이터의 실체입니다.' },
+                'function_call': { term: '함수 호출', description: '정의된 함수를 실행하여 특정 작업을 수행하고 결과를 반환받는 과정입니다.' },
+                'object_split': { term: '객체 (Object)', description: '`train_test_split` 함수에 의해 반환된, 훈련용/테스트용 데이터 실체들입니다.' },
+                'function_call_split': { term: '함수 호출', description: '데이터를 여러 조각으로 나누는 함수를 실행하는 과정입니다.' }
+            };
+
+            const conceptButtonsContainer = document.getElementById('concept-buttons');
+            const conceptDisplay = document.getElementById('concept-display');
+            
+            legoConcepts.forEach((concept, index) => {
+                const button = document.createElement('button');
+                button.className = 'concept-btn w-full text-left p-3 border rounded-lg transition-all duration-200 hover:bg-teal-500 hover:text-white hover:border-teal-500';
+                button.textContent = concept.term;
+                button.onclick = () => {
+                    displayConcept(concept);
+                    document.querySelectorAll('.concept-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                };
+                conceptButtonsContainer.appendChild(button);
+                if (index === 0) {
+                    button.click();
+                }
+            });
+
+            function displayConcept(concept) {
+                conceptDisplay.innerHTML = `
+                    <div class="text-center fade-in">
+                        <div class="text-6xl mb-4">${concept.emoji}</div>
+                        <h3 class="text-xl font-bold text-teal-600 mb-2">${concept.term}</h3>
+                        <p class="text-slate-600 italic mb-3">"${concept.analogy}"</p>
+                        <p class="text-slate-700">${concept.description}</p>
+                    </div>
+                `;
+            }
+
+            const codeHighlights = document.querySelectorAll('.code-highlight');
+            const codeExplanation = document.getElementById('code-explanation');
+            let lastSelected = null;
+
+            codeHighlights.forEach(span => {
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const key = span.dataset.conceptKey;
+                    const mapping = codeMappings[key];
+                    
+                    if (lastSelected) {
+                        lastSelected.classList.remove('selected');
+                    }
+                    span.classList.add('selected');
+                    lastSelected = span;
+
+                    codeExplanation.innerHTML = `
+                        <div class="fade-in">
+                           <p class="text-sm text-teal-600 font-semibold mb-1">선택된 코드: <code class="bg-orange-200 text-orange-800 px-2 py-1 rounded">${span.textContent}</code></p>
+                           <h4 class="text-lg font-bold mb-2">${mapping.term}</h4>
+                           <p class="text-slate-700">${mapping.description}</p>
+                        </div>
+                    `;
+                });
+            });
+            
+            document.querySelector('#code-mapping').addEventListener('click', () => {
+                if(lastSelected) {
+                    lastSelected.classList.remove('selected');
+                    lastSelected = null;
+                    codeExplanation.innerHTML = `<p class="text-slate-500 text-center">코드의 각 부분을 클릭하여 설명을 확인하세요.</p>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
