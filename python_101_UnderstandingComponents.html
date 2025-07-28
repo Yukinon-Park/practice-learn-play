@@ -96,7 +96,10 @@ from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<spa
 
 <span class="code-highlight" data-concept-key="object_iris">iris_data</span> = <span class="code-highlight" data-concept-key="function_call">load_iris()</span>
 
-<span class="code-highlight" data-concept-key="object_split">X_train, X_test, y_train, y_test</span> = <span class="code-highlight" data-concept-key="function_call_split">train_test_split(...)</span></code></pre>
+<span class="code-highlight" data-concept-key="object_split">X_train, X_test, y_train, y_test</span> = <span class="code-highlight" data-concept-key="function_call_split">train_test_split(...)</span>
+<span class="code-highlight" data-concept-key="method_fit">dt_clf.fit(X_train, y_train)</span>
+<span class="code-highlight" data-concept-key="method_predict">prediction = dt_clf.predict(X_test)</span>
+</code></pre>
                             </div>
                         </div>
                         <div id="code-explanation" class="bg-slate-100 p-6 rounded-lg flex flex-col justify-center">
@@ -112,7 +115,8 @@ from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<spa
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const legoConcepts = [
-                { term: '함수 (Function)', emoji: '⚙️', analogy: '특정 동작 (e.g., 브릭 두 개 연결하기)', description: '가장 작은 단위의 기능 또는 동작입니다. 특정 작업을 수행하는 코드 블록입니다.' },
+                { term: '함수 (Function)', emoji: '⚙️', analogy: '독립적인 만능 도구. 특정 동작 (e.g., 브릭 두 개 연결하기)', description: '가장 작은 단위의 기능 또는 동작입니다. 특정 작업을 수행하는 코드 블록입니다. 클래스나 객체에 소속되지 않고, 단독으로 호출될 수 있는 독립적인 기능입니다.' },
+                { term: '메서드 (Method)', emoji: '🚗💨', analogy: '레고 자동차의 "굴러가기" 기능', description: '클래스(객체)에 소속된 함수입니다. 반드시 객체를 통해서만 호출할 수 있는, 객체가 수행하는 행동입니다.' },
                 { term: '객체 (Object)', emoji: '🚗', analogy: '완성된 레고 창작물 (e.g., 빨간색 자동차)', description: '설계도(클래스)를 바탕으로 만들어진 실체입니다. 고유한 상태(색상)와 동작(굴러가기)을 가집니다.' },
                 { term: '클래스 (Class)', emoji: '📄', analogy: '레고 조립 설명서 (e.g., 자동차 설계도)', description: '객체를 만들기 위한 설계도 또는 템플릿입니다. 객체의 속성과 행동 방식을 정의합니다.' },
                 { term: '모듈 (Module)', emoji: '📦', analogy: '특정 부품이 담긴 비닐봉지 (e.g., 바퀴 세트 봉지)', description: '함수와 클래스를 모아놓은 하나의 파이썬 파일(`.py`)입니다. 특정 주제와 관련된 기능의 묶음입니다.' },
@@ -130,7 +134,9 @@ from <span class="code-highlight" data-concept-key="sklearn">sklearn</span>.<spa
                 'object_iris': { term: '객체 (Object)', description: '`load_iris` 함수가 실행되어 반환된, 아이리스 품종 데이터의 실체입니다.' },
                 'function_call': { term: '함수 호출', description: '정의된 함수를 실행하여 특정 작업을 수행하고 결과를 반환받는 과정입니다.' },
                 'object_split': { term: '객체 (Object)', description: '`train_test_split` 함수에 의해 반환된, 훈련용/테스트용 데이터 실체들입니다.' },
-                'function_call_split': { term: '함수 호출', description: '데이터를 여러 조각으로 나누는 함수를 실행하는 과정입니다.' }
+                'function_call_split': { term: '함수 호출', description: '데이터를 여러 조각으로 나누는 함수를 실행하는 과정입니다.' },
+                'method_fit': { term: '메서드 (Method)', description: '`dt_clf`라는 객체가 가진 `fit`이라는 행동(메서드)을 호출하여 모델을 학습시킵니다.' },
+                'method_predict': { term: '메서드 (Method)', description: '`dt_clf` 객체의 `predict` 메서드를 호출하여 새로운 데이터에 대한 예측값을 만듭니다.' }
             };
 
             const conceptButtonsContainer = document.getElementById('concept-buttons');
