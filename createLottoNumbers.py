@@ -183,6 +183,27 @@ def generate_unique_lotto_combination(past_combinations_set):
     print(f"경고: {max_attempts}번의 시도 내에 고유한 로또 조합을 찾지 못했습니다. 이미 모든 조합이 당첨되었거나, 시도 횟수가 부족할 수 있습니다.")
     return None # 고유 조합을 찾지 못했음을 알림
 
+def generate_combination_from_existing_numbers(existing_combinations):
+    """
+    기존 3개 조합의 모든 숫자들만을 사용해 새로운 6개짜리 조합을 생성합니다.
+    """
+    # 모든 숫자들을 set으로 모아 중복 제거
+    all_numbers = set()
+    for combo in existing_combinations:
+        all_numbers.update(combo)
+    all_numbers = list(all_numbers)
+
+    if len(all_numbers) < 6:
+        print("기존 조합에서 추출한 숫자가 6개 미만입니다. 새로운 조합을 만들 수 없습니다.")
+        return None
+
+    # 6개를 무작위로 뽑아 조합 생성
+    new_combo = sorted(random.sample(all_numbers, 6))
+    return new_combo
+
+
+
+
 if __name__ == "__main__":
     print("로또 당첨 번호 이력을 파일에서 관리하고, 새로운 (겹치지 않는) 조합을 추첨합니다...\n")
 
@@ -197,9 +218,9 @@ if __name__ == "__main__":
         print("과거 당첨 조합을 가져오는 데 실패했습니다. 새로운 조합 추첨을 진행할 수 없습니다.")
     else:
         print("\n--- 새로운 로또 조합 추첨 시작 (이력 파일 데이터 기반) ---")
-        print("과거 당첨 조합과 겹치지 않는 새로운 로또 조합 5개를 추첨 중...")
+        print("과거 당첨 조합과 겹치지 않는 새로운 로또 조합 3개를 추첨 중...")
         generated_combinations = []
-        num_sets_to_generate = 5 # 5가지 세트 생성
+        num_sets_to_generate = 3 # 3가지 세트 생성
 
         for i in range(num_sets_to_generate):
             print(f"\n[{i+1}/{num_sets_to_generate}] 번째 조합 생성 중...")
@@ -218,6 +239,15 @@ if __name__ == "__main__":
             print("\n\n✨ 당신의 행운의 로또 조합들 (지난 2년간 당첨 조합과 겹치지 않음):")
             for idx, combo in enumerate(generated_combinations):
                 print(f"  조합 {idx+1}: {combo}")
+
+            # 추가: 기존 3개 조합의 숫자들로만 새로운 조합 생성
+            print("\n--- 기존 3개 조합의 숫자들로만 만든 추가 조합 ---")
+            extra_combo = generate_combination_from_existing_numbers(generated_combinations)
+            if extra_combo:
+                print(f"  추가 조합: {extra_combo}")
+            else:
+                print("  추가 조합 생성 실패 (숫자 부족).")
+
         else:
             print("\n로또 조합 추첨에 실패했습니다.")
 
